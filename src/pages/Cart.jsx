@@ -1,9 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 
 const Cart = () => {
   const { cart, updateQty, removeFromCart, clearCart } = useCart();
+  const navigate = useNavigate();
   const total = cart.reduce((acc, c) => acc + (c.price || 0) * (c.qty || 1), 0);
 
   return (
@@ -52,7 +53,7 @@ const Cart = () => {
               </div>
 
               <div className="mt-4">
-                <button className="w-full px-4 py-3 bg-gradient-to-r from-orange-400 to-orange-500 text-white rounded font-semibold shadow">Checkout</button>
+                <button onClick={() => navigate('/checkout')} className="w-full px-4 py-3 bg-gradient-to-r from-orange-400 to-orange-500 text-white rounded font-semibold shadow">Checkout</button>
               </div>
 
               <div className="text-xs text-gray-500 mt-3">Secure Checkout • Free returns</div>

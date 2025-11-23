@@ -11,7 +11,12 @@ const products = [
     image: "/images/shoes.jpg",
     images: ["/images/shoes.jpg", "/images/shoes-2.jpg"],
     description: "Breathable mesh, cushioned midsole.",
-    longDescription: "High-performance shoes for daily runs and casual wear."
+    longDescription: "High-performance shoes for daily runs and casual wear.",
+    reviews: [
+      { name: "John D.", rating: 5, comment: "Great shoes for running! Very comfortable and breathable." },
+      { name: "Sarah M.", rating: 4, comment: "Good quality, but a bit tight at first." },
+      { name: "Mike R.", rating: 5, comment: "Excellent value for money. Highly recommend." }
+    ]
   },
   {
     id: 2,

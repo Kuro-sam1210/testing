@@ -84,6 +84,25 @@ const ProductDetails = () => {
               <li>{product.longDescription}</li>
             </ul>
           </div>
+
+          <div className="mt-6 bg-white p-4 rounded-lg shadow-sm">
+            <h3 className="font-semibold text-lg mb-3">Reviews ({product.reviews?.length || 0})</h3>
+            {product.reviews && product.reviews.length > 0 ? (
+              <div className="space-y-4">
+                {product.reviews.map((review, i) => (
+                  <div key={i} className="border-b pb-3 last:border-b-0">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="font-medium">{review.name}</span>
+                      <div className="text-yellow-500">{'★'.repeat(review.rating)}</div>
+                    </div>
+                    <p className="text-gray-700">{review.comment}</p>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-gray-500">No reviews yet. Be the first to review this product!</p>
+            )}
+          </div>
         </div>
 
         <aside className="hidden lg:block">

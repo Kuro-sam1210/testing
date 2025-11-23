@@ -1,11 +1,12 @@
-import React from "react"; 
-import { Link } from "react-router-dom";
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { useAuth } from "../context/AuthContext";
 
 const Navbar = () => {
   const { cart } = useCart();
   const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
   return (
     <nav className="bg-white shadow-md sticky top-0 z-40">
@@ -13,11 +14,10 @@ const Navbar = () => {
         <div className="flex justify-between h-16 items-center">
 
           {/* Brand */}
-          <Link
-            to="/"
-            className="text-2xl font-bold tracking-wide text-gray-900 hover:text-gray-700 transition"
-          >
-            MyStore
+          <Link to="/" className="text-2xl font-bold tracking-wide transition">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-orange-400">
+              Market
+            </span>
           </Link>
 
           {/* Right Side */}
@@ -32,11 +32,11 @@ const Navbar = () => {
             </Link>
 
             {/* Cart */}
-            <Link
-              to="/cart"
-              className="relative text-gray-700 font-medium hover:text-black transition"
-            >
-              Cart
+            <Link to="/cart" className="relative text-gray-700 font-medium hover:text-black transition">
+              <span className="inline-flex items-center gap-2">
+                <span className="text-lg">🛒</span>
+                <span className="hidden sm:inline">Cart</span>
+              </span>
               <span className="absolute -top-2 -right-4 bg-red-500 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center shadow">
                 {cart.length}
               </span>
@@ -45,9 +45,9 @@ const Navbar = () => {
             {/* Auth */}
             {user ? (
               <div className="flex items-center gap-4">
-                <span className="text-gray-700 text-sm font-medium">
+                <Link to="/profile" className="text-gray-700 text-sm font-medium hover:text-black transition">
                   {user.name || user.email}
-                </span>
+                </Link>
 
                 <button
                   onClick={logout}
@@ -59,7 +59,7 @@ const Navbar = () => {
             ) : (
               <Link
                 to="/login"
-                className="px-4 py-2 bg-black text-white rounded-lg font-semibold shadow hover:bg-gray-900 transition"
+                className="px-4 py-2 bg-gradient-to-r from-pink-500 to-orange-400 text-white rounded-full font-semibold shadow hover:opacity-95 transition"
               >
                 Sign in
               </Link>

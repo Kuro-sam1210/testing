@@ -1,0 +1,43 @@
+import React from "react";
+import { Link } from "react-router-dom";
+
+const categories = [
+  { id: "shoes", name: "Shoes", icon: "👟" },
+  { id: "speakers", name: "Speakers", icon: "🔊" },
+  { id: "apparel", name: "Apparel", icon: "👕" },
+  { id: "electronics", name: "Electronics", icon: "📱" },
+  { id: "watches", name: "Watches", icon: "⌚" },
+  { id: "bags", name: "Bags", icon: "👜" },
+  { id: "gaming", name: "Gaming", icon: "🎮" },
+  { id: "laptops", name: "Laptops", icon: "💻" },
+  { id: "phones", name: "Phones", icon: "📞" },
+  { id: "accessories", name: "Accessories", icon: "🛍️" },
+  { id: "home", name: "Home", icon: "🏠" },
+  { id: "all", name: "All", icon: "🛒" },
+];
+
+const CategoriesGrid = () => {
+  return (
+    <section className="py-6">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-16">
+        <h2 className="text-xl font-bold mb-4">Browse Categories</h2>
+        <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4">
+          {categories.map((cat) => (
+            <Link
+              key={cat.id}
+              to={`/products?category=${cat.id}`}
+              className="flex flex-col items-center p-3 bg-white rounded-lg shadow-sm hover:shadow-md transition border"
+            >
+              <div className="w-16 h-16 rounded-full flex items-center justify-center mb-2 bg-gradient-to-br from-pink-50 to-orange-50 text-2xl">
+                {cat.icon}
+              </div>
+              <span className="text-sm font-medium text-center">{cat.name}</span>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default CategoriesGrid;

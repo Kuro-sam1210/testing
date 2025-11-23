@@ -27,7 +27,7 @@ const PromoCarousel = () => {
         >
           {banners.map(b => (
             <SwiperSlide key={b.id}>
-              <div className="bg-white rounded-lg overflow-hidden shadow-sm">
+              <div className="bg-[var(--surface)] rounded-[var(--radius)] overflow-hidden shadow-[var(--shadow)]">
                 <img src={b.img} alt={b.title} className="w-full h-40 object-cover" />
               </div>
             </SwiperSlide>

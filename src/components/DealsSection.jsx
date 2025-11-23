@@ -12,15 +12,15 @@ const DealsSection = () => {
   }));
 
   return (
-    <section className="py-8 bg-white">
+    <section className="py-8 bg-[var(--background)]">
       <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-16">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-orange-400">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-[var(--primary)] to-[var(--primary-light)]">
               Deals of the Day
             </span>
           </h2>
-          <div className="text-sm text-gray-500">Ends in 23:59:59</div>
+          <div className="text-sm text-[var(--text-light)]">Ends in 23:59:59</div>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">

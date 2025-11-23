@@ -1,1 +1,19 @@
 @import "tailwindcss";
+
+:root {
+  --primary: #FF6B00;
+  --primary-light: #FF8A34;
+  --primary-dark: #D85C00;
+
+  --background: #F5F5F5;
+  --surface: #FFFFFF;
+
+  --text-dark: #222222;
+  --text-mid: #666666;
+  --text-light: #999999;
+
+  --border: #E5E5E5;
+
+  --radius: 10px;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}

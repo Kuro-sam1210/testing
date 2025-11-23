@@ -17,18 +17,20 @@ const categories = [
 
 const CategorySidebar = ({ active = "all", onSelect = () => {} }) => {
   return (
-    <aside className="hidden md:block fixed left-0 top-24 h-[calc(100vh-6rem)] w-64 bg-white p-6 rounded-r-lg border-r border-gray-200 shadow-sm overflow-y-auto">
-      <h4 className="text-xl font-bold mb-6 border-b pb-2">Categories</h4>
+    <aside className="hidden md:block fixed left-0 top-24 h-[calc(100vh-6rem)] w-64 bg-white p-6 rounded-r-xl border-r border-gray-200 shadow-sm overflow-y-auto">
+      <h4 className="text-xl font-semibold mb-6 border-b border-gray-200 pb-2 text-gray-800">
+        Categories
+      </h4>
 
-      <ul className="flex flex-col gap-3">
+      <ul className="flex flex-col gap-2">
         {categories.map((c) => (
           <li key={c.id}>
             <button
               onClick={() => onSelect(c.id)}
-              className={`w-full text-left px-4 py-2 rounded-lg text-sm font-medium transition 
+              className={`w-full text-left px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200
                 ${
                   active === c.id
-                    ? "bg-gradient-to-r from-orange-400 to-orange-500 text-white shadow-lg"
+                    ? "bg-gradient-to-r from-pink-500 to-pink-300 text-white shadow-md"
                     : "hover:bg-gray-100 text-gray-700"
                 }
               `}

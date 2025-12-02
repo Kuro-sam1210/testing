@@ -1,19 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;900&family=Playfair+Display:wght@400;700&display=swap');
 @import "tailwindcss";
 
+/* --- New: High-Contrast Luxe Theme Variables --- */
 :root {
-  --primary: #FF6B00;
-  --primary-light: #FF8A34;
-  --primary-dark: #D85C00;
+  /* ACCENT & BRANDING: Deep Gold/Amber */
+  --primary: #FFB800;
+  --primary-hover: #E6A300;
+  --primary-focus: #FFCF40;
 
-  --background: #F5F5F5;
-  --surface: #FFFFFF;
+  /* BASE COLORS: Dark Slate / Black */
+  --background: #0D1117; /* Deep Charcoal/Black */
+  --surface: #161B22;    /* Dark Card/Panel Background */
 
-  --text-dark: #222222;
-  --text-mid: #666666;
-  --text-light: #999999;
+  /* TEXT COLORS */
+  --text-light: #F0F6FC; /* Primary body text, high contrast */
+  --text-mid: #A8B1B8;   /* Secondary descriptions, meta data */
+  --text-dim: #6E7681;   /* Tertiary labels, disabled states */
 
-  --border: #E5E5E5;
+  /* UTILITY & BORDERS */
+  --border: #30363D;     /* Subtle division lines */
+  --success: #3D913D;    /* Green for purchase confirmation */
+  --error: #FF5A5A;      /* Red for errors/out-of-stock */
 
-  --radius: 10px;
-  --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  /* SHADOWS & ROUNDING */
+  --radius: 8px;
+  --shadow-dark: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* --- Tailwind Base Layer Integration --- */
+@layer base {
+  /* * Fonts: Montserrat (Body/System), Playfair Display (Headings/Product Names)
+   */
+  html {
+    /* Use Montserrat for system/body text */
+    font-family: 'Montserrat', sans-serif;
+    /* Apply base background color and smooth scrolling */
+    @apply bg-[var(--background)] text-[var(--text-light)] scroll-smooth;
+  }
+
+  h1, h2, h3, h4 {
+    /* Use Playfair Display for elegance in titles */
+    font-family: 'Playfair Display', serif;
+    @apply font-bold;
+  }
+
+  a {
+    @apply text-[var(--text-light)] hover:text-[var(--primary)] transition-colors;
+  }
 }

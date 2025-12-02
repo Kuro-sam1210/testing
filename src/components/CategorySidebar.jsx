@@ -15,23 +15,29 @@ const categories = [
   { id: "home", name: "Home Appliances" },
 ];
 
+// Note: This component is designed to be placed inside a container that provides
+// bg-[var(--surface)], rounded-xl, and shadow-luxe (as done in Products.jsx).
+// We will focus on styling the internal elements.
 const CategorySidebar = ({ active = "all", onSelect = () => {} }) => {
   return (
-    <aside className="hidden md:block fixed left-0 top-24 h-[calc(100vh-6rem)] w-64 bg-white p-6 rounded-r-xl border-r border-gray-200 shadow-sm overflow-y-auto">
-      <h4 className="text-xl font-semibold mb-6 border-b border-gray-200 pb-2 text-gray-800">
-        Categories
-      </h4>
+    // Removed fixed positioning and structural styling, as the parent (Products.jsx)
+    // now wraps this in a beautifully styled dark container.
+    <div className="overflow-y-auto"> 
+      
+      {/* The parent component handles the main heading, so we can focus on the list */}
 
-      <ul className="flex flex-col gap-2">
+      <ul className="flex flex-col gap-1">
         {categories.map((c) => (
           <li key={c.id}>
             <button
               onClick={() => onSelect(c.id)}
-              className={`w-full text-left px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200
+              className={`w-full text-left px-4 py-2 rounded-lg text-md transition-all duration-200 
                 ${
+                  // Active State: Use primary color for background and deep dark background for text
                   active === c.id
-                    ? "bg-gradient-to-r from-pink-500 to-pink-300 text-white shadow-md"
-                    : "hover:bg-gray-100 text-gray-700"
+                    ? "bg-[var(--primary)] text-[var(--background)] font-bold shadow-md shadow-amber-900"
+                    // Inactive State: Subtle hover effect and light text
+                    : "hover:bg-[var(--background)] text-[var(--text-light)] hover:text-[var(--primary)] font-medium"
                 }
               `}
             >
@@ -40,7 +46,7 @@ const CategorySidebar = ({ active = "all", onSelect = () => {} }) => {
           </li>
         ))}
       </ul>
-    </aside>
+    </div>
   );
 };
 

@@ -1,18 +1,34 @@
+/** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    './index.html',
-    './src/**/*.{js,jsx,ts,tsx}',
-  ],
+  // ... other configs (content paths, etc.)
   theme: {
     extend: {
       colors: {
-        market: {
-          DEFAULT: '#ff6b6b',
-          light: '#ff8a80',
-          peach: '#ff8a65'
-        }
-      }
-    }
+        // Map CSS variables to Tailwind utilities for consistency
+        'primary': 'var(--primary)',
+        'background': 'var(--background)',
+        'surface': 'var(--surface)',
+        'text-dark': 'var(--text-dark)', // Note: This is now text-light in the CSS variables
+        'text-mid': 'var(--text-mid)',
+        'text-light': 'var(--text-light)',
+        'border-color': 'var(--border)',
+        'success': 'var(--success)',
+        'error': 'var(--error)',
+      },
+      borderRadius: {
+        // Use the variable for corner radius
+        'xl': 'var(--radius)',
+      },
+      boxShadow: {
+        // Define the new dark shadow
+        'luxe': 'var(--shadow-dark)',
+      },
+      fontFamily: {
+        // Define custom font groups
+        'sans': ['Montserrat', 'sans-serif'],
+        'serif': ['Playfair Display', 'serif'],
+      },
+    },
   },
-  plugins: [],
+  // ... plugins
 }

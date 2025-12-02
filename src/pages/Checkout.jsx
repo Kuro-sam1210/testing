@@ -16,125 +16,121 @@ const Checkout = () => {
     cvv: ""
   });
 
+  // Calculate the total cost
   const total = cart.reduce((acc, c) => acc + (c.price || 0) * (c.qty || 1), 0);
+  
+  // Example shipping cost and tax (added for realism)
+  const shipping = total > 50000 ? 0 : 5000;
+  const taxRate = 0.05;
+  const tax = total * taxRate;
+  const grandTotal = total + shipping + tax;
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setForm(f => ({ ...f, [name]: value }));
+  };
 
   const submit = (e) => {
     e.preventDefault();
     // Mock checkout
-    alert("Order placed successfully!");
+    alert("Order placed successfully! Thank you for choosing LuxeShop.");
     clearCart();
     navigate("/");
   };
 
+  // Empty cart state styling
   if (cart.length === 0) {
     return (
-      <div className="px-4 md:px-8 lg:px-16 py-8">
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="text-lg text-[var(--text-dark)]">Your cart is empty. <a href="/products" className="text-[var(--primary)]">Shop now</a></p>
+      <div className="px-4 md:px-8 lg:px-16 py-16 bg-[var(--background)] min-h-[50vh]">
+        <div className="max-w-4xl mx-auto text-center p-8 bg-[var(--surface)] rounded-xl shadow-luxe border border-[var(--border)]">
+          <p className="text-xl text-[var(--text-light)]">
+            🛒 Your cart is empty. <a href="/products" className="text-[var(--primary)] font-semibold hover:text-[var(--primary-hover)] transition-colors">Shop now</a>
+          </p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="px-4 md:px-8 lg:px-16 py-8">
-      <div className="max-w-4xl mx-auto">
-        <h2 className="text-2xl font-semibold mb-6 text-[var(--text-dark)]">Checkout</h2>
+    <div className="px-4 md:px-8 lg:px-16 py-12 bg-[var(--background)]">
+      <div className="max-w-5xl mx-auto">
+        
+        {/* Title: Elegant font-serif and primary text color */}
+        <h2 className="text-4xl font-serif font-bold mb-10 text-[var(--text-light)] border-b border-[var(--border)] pb-4">
+          Secure Checkout
+        </h2>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div className="space-y-6">
-            <div className="bg-[var(--surface)] p-6 rounded-[var(--radius)] shadow-[var(--shadow)]">
-              <h3 className="text-lg font-semibold mb-4 text-[var(--text-dark)]">Shipping Information</h3>
-              <form onSubmit={submit} className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium mb-1 text-[var(--text-dark)]">Full Name</label>
-                  <input
-                    type="text"
-                    required
-                    value={form.name}
-                    onChange={(e) => setForm(f => ({ ...f, name: e.target.value }))}
-                    className="w-full px-3 py-2 border border-[var(--border)] rounded-[var(--radius)] text-[var(--text-dark)]"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-1 text-[var(--text-dark)]">Email</label>
-                  <input
-                    type="email"
-                    required
-                    value={form.email}
-                    onChange={(e) => setForm(f => ({ ...f, email: e.target.value }))}
-                    className="w-full px-3 py-2 border border-[var(--border)] rounded-[var(--radius)] text-[var(--text-dark)]"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-1 text-[var(--text-dark)]">Address</label>
-                  <input
-                    type="text"
-                    required
-                    value={form.address}
-                    onChange={(e) => setForm(f => ({ ...f, address: e.target.value }))}
-                    className="w-full px-3 py-2 border border-[var(--border)] rounded-[var(--radius)] text-[var(--text-dark)]"
-                  />
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium mb-1 text-[var(--text-dark)]">City</label>
+        <form onSubmit={submit} className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+          
+          {/* LEFT SIDE: Shipping & Payment (span 2 columns) */}
+          <div className="space-y-8 lg:col-span-2">
+            
+            {/* Shipping Information */}
+            <div className="bg-[var(--surface)] p-8 rounded-xl shadow-luxe border border-[var(--border)]">
+              <h3 className="text-xl font-semibold mb-6 text-[var(--primary)] border-b border-[var(--border)] pb-2">
+                1. Shipping Information
+              </h3>
+              <div className="space-y-4">
+                {/* Input Fields: Styled for Dark Theme */}
+                {['name', 'email', 'address', 'city', 'zip'].map((key) => (
+                  <div key={key}>
+                    <label className="block text-sm font-medium mb-1 text-[var(--text-light)] capitalize">
+                      {key.replace('zip', 'ZIP Code').replace('cardnumber', 'Card Number')}
+                    </label>
                     <input
-                      type="text"
+                      type={key === 'email' ? 'email' : 'text'}
+                      name={key}
                       required
-                      value={form.city}
-                      onChange={(e) => setForm(f => ({ ...f, city: e.target.value }))}
-                      className="w-full px-3 py-2 border border-[var(--border)] rounded-[var(--radius)] text-[var(--text-dark)]"
+                      value={form[key]}
+                      onChange={handleInputChange}
+                      // Input Styling: Dark background, light text, primary focus ring
+                      className="w-full px-4 py-2 bg-[var(--background)] border border-[var(--border)] rounded-lg text-[var(--text-light)] focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent transition-all"
                     />
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium mb-1 text-[var(--text-dark)]">ZIP Code</label>
-                    <input
-                      type="text"
-                      required
-                      value={form.zip}
-                      onChange={(e) => setForm(f => ({ ...f, zip: e.target.value }))}
-                      className="w-full px-3 py-2 border border-[var(--border)] rounded-[var(--radius)] text-[var(--text-dark)]"
-                    />
-                  </div>
-                </div>
-              </form>
+                ))}
+              </div>
             </div>
 
-            <div className="bg-[var(--surface)] p-6 rounded-[var(--radius)] shadow-[var(--shadow)]">
-              <h3 className="text-lg font-semibold mb-4 text-[var(--text-dark)]">Payment Information</h3>
+            {/* Payment Information */}
+            <div className="bg-[var(--surface)] p-8 rounded-xl shadow-luxe border border-[var(--border)]">
+              <h3 className="text-xl font-semibold mb-6 text-[var(--primary)] border-b border-[var(--border)] pb-2">
+                2. Payment Information
+              </h3>
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium mb-1 text-[var(--text-dark)]">Card Number</label>
+                  <label className="block text-sm font-medium mb-1 text-[var(--text-light)]">Card Number</label>
                   <input
                     type="text"
+                    name="cardNumber"
                     required
                     value={form.cardNumber}
-                    onChange={(e) => setForm(f => ({ ...f, cardNumber: e.target.value }))}
-                    className="w-full px-3 py-2 border border-[var(--border)] rounded-[var(--radius)] text-[var(--text-dark)]"
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-2 bg-[var(--background)] border border-[var(--border)] rounded-lg text-[var(--text-light)] focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent transition-all"
                     placeholder="1234 5678 9012 3456"
                   />
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium mb-1 text-[var(--text-dark)]">Expiry Date</label>
+                    <label className="block text-sm font-medium mb-1 text-[var(--text-light)]">Expiry Date</label>
                     <input
                       type="text"
+                      name="expiry"
                       required
                       value={form.expiry}
-                      onChange={(e) => setForm(f => ({ ...f, expiry: e.target.value }))}
-                      className="w-full px-3 py-2 border border-[var(--border)] rounded-[var(--radius)] text-[var(--text-dark)]"
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-2 bg-[var(--background)] border border-[var(--border)] rounded-lg text-[var(--text-light)] focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent transition-all"
                       placeholder="MM/YY"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-1 text-[var(--text-dark)]">CVV</label>
+                    <label className="block text-sm font-medium mb-1 text-[var(--text-light)]">CVV</label>
                     <input
                       type="text"
+                      name="cvv"
                       required
                       value={form.cvv}
-                      onChange={(e) => setForm(f => ({ ...f, cvv: e.target.value }))}
-                      className="w-full px-3 py-2 border border-[var(--border)] rounded-[var(--radius)] text-[var(--text-dark)]"
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-2 bg-[var(--background)] border border-[var(--border)] rounded-lg text-[var(--text-light)] focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent transition-all"
                       placeholder="123"
                     />
                   </div>
@@ -142,31 +138,63 @@ const Checkout = () => {
               </div>
             </div>
           </div>
-
-          <div className="bg-[var(--surface)] p-6 rounded-[var(--radius)] shadow-[var(--shadow)] h-fit">
-            <h3 className="text-lg font-semibold mb-4 text-[var(--text-dark)]">Order Summary</h3>
-            <div className="space-y-2 mb-4">
-              {cart.map((item) => (
-                <div key={item.id} className="flex justify-between text-[var(--text-dark)]">
-                  <span>{item.title} x{item.qty}</span>
-                  <span>₦{((item.price || 0) * (item.qty || 1)).toLocaleString()}</span>
-                </div>
-              ))}
-            </div>
-            <div className="border-t border-[var(--border)] pt-4">
-              <div className="flex justify-between font-semibold text-[var(--text-dark)]">
-                <span>Total</span>
-                <span>₦{total.toLocaleString()}</span>
+          
+          {/* RIGHT SIDE: Order Summary (span 1 column) */}
+          <div className="lg:col-span-1">
+            <div className="bg-[var(--surface)] p-8 rounded-xl shadow-luxe border border-[var(--border)] h-fit sticky top-20">
+              <h3 className="text-xl font-semibold mb-6 text-[var(--primary)] border-b border-[var(--border)] pb-2">
+                3. Order Summary
+              </h3>
+              
+              {/* Item List */}
+              <div className="space-y-3 mb-6 max-h-60 overflow-y-auto pr-2">
+                {cart.map((item) => (
+                  <div key={item.id} className="flex justify-between text-sm text-[var(--text-mid)]">
+                    <span className="truncate pr-2">{item.title} ({item.qty})</span>
+                    <span className="font-medium text-[var(--text-light)]">₦{((item.price || 0) * (item.qty || 1)).toLocaleString()}</span>
+                  </div>
+                ))}
               </div>
+              
+              {/* Cost Details */}
+              <div className="border-t border-[var(--border)] pt-4 space-y-2">
+                <div className="flex justify-between text-sm text-[var(--text-mid)]">
+                  <span>Subtotal:</span>
+                  <span className="font-medium">₦{total.toLocaleString()}</span>
+                </div>
+                <div className="flex justify-between text-sm text-[var(--text-mid)]">
+                  <span>Shipping:</span>
+                  <span className="font-medium">{shipping === 0 ? 'FREE' : `₦${shipping.toLocaleString()}`}</span>
+                </div>
+                <div className="flex justify-between text-sm text-[var(--text-mid)]">
+                  <span>Tax (5%):</span>
+                  <span className="font-medium">₦{tax.toLocaleString()}</span>
+                </div>
+              </div>
+
+              {/* Grand Total */}
+              <div className="border-t border-[var(--border)] mt-4 pt-4">
+                <div className="flex justify-between font-extrabold text-xl text-[var(--primary)]">
+                  <span>Grand Total</span>
+                  <span>₦{grandTotal.toLocaleString()}</span>
+                </div>
+              </div>
+
+              {/* Place Order Button */}
+              <button
+                type="submit" // Associate with the main form
+                className="w-full mt-6 px-4 py-3 bg-[var(--primary)] text-[var(--background)] rounded-lg font-bold shadow-luxe hover:bg-[var(--primary-hover)] transition-colors text-lg"
+              >
+                Place Order
+              </button>
+              
+              {/* Security Message */}
+              <p className="text-center text-xs text-[var(--text-mid)] mt-3">
+                <span className="text-[var(--success)] mr-1">🔒</span> Payments are secure and encrypted.
+              </p>
             </div>
-            <button
-              onClick={submit}
-              className="w-full mt-6 px-4 py-3 bg-gradient-to-r from-[var(--primary)] to-[var(--primary-light)] text-[var(--surface)] rounded-[var(--radius)] font-semibold shadow-[var(--shadow)]"
-            >
-              Place Order
-            </button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );
